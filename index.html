@@ -31,6 +31,12 @@
             font-weight: bold;
             margin-top: 10px;
         }
+        .red-text {
+            color: red;
+            font-size: 2em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -39,20 +45,27 @@
         <div class="image-box">
             <img id="saltyImage" src="" alt="Nick's Mood">
         </div>
-        <div class="green-text">OHHHHHH YES</div>
+        <div id="statusText" class="green-text">OHHHHHH YES</div>
     </div>
     
     <script>
         const images = {
             1: 'https://i.imgur.com/VlkBHzD.jpeg',
             2: 'https://i.imgur.com/VlkBHzD.jpeg',
-            3: 'https://i.imgur.com/VlkBHzD.jpeg',
+            3: 'https://media1.tenor.com/m/jFToowIqXR0AAAAC/yes-ohyes.gif',
             4: 'https://i.imgur.com/VlkBHzD.jpeg',
-            5: 'https://i.imgur.com/VlkBHzD.jpeg'
+            5: 'https://i.imgur.com/VlkBHzD.jpeg',
+            6: 'https://i.imgur.com/VlkBHzD.jpeg',
+            0: 'https://i.imgur.com/VlkBHzD.jpeg'
         };
         
         const today = new Date().getDay();
         document.getElementById('saltyImage').src = images[today] || 'default.jpg';
+        
+        if (today === 6 || today === 0) {
+            document.getElementById('statusText').textContent = "Nick is off for the weekend, but still salty";
+            document.getElementById('statusText').className = "red-text";
+        }
     </script>
 </body>
 </html>
