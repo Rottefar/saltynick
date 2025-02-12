@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is Nick salty today?</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .image-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        img {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Is Nick salty today?</h1>
+    <div class="container">
+        <div class="image-box">
+            <img id="saltyImage" src="" alt="Nick's Mood">
+        </div>
+    </div>
+    
+    <script>
+        const images = {
+            1: 'monday.jpg',
+            2: 'tuesday.jpg',
+            3: 'wednesday.jpg',
+            4: 'thursday.jpg',
+            5: 'friday.jpg'
+        };
+        
+        const today = new Date().getDay();
+        document.getElementById('saltyImage').src = images[today] || 'default.jpg';
+    </script>
+</body>
+</html>
 
