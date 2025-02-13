@@ -73,6 +73,11 @@
             font-weight: bold;
             margin-top: 10px;
         }
+        .green-text {
+            color: green;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
         .bottom-text {
             position: fixed;
             bottom: 10px;
@@ -102,10 +107,11 @@
             <img id="saltyImage" src="" alt="Nick's Mood">
         </div>
         <div id="statusText" style="display: none;" class="red-text">Nick is off for the weekend, but still salty</div>
+        <div id="bankDayText" style="display: none;" class="green-text">Even tho Nick just got paid, he is still salty</div>
     </div>
     
     <div class="bottom-text">
-        <div class="version-text">Version 2025.02.13.08 - under development</div>
+        <div class="version-text">Version 2025.02.13.09 - under development</div>
         <div class="donation-text"><a href="https://www.tesla.com/da_dk" target="_blank">If you want to support the development, please consider donating</a></div>
     </div>
     
@@ -120,11 +126,21 @@
             0: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
         };
         
-        const today = new Date().getDay();
-        document.getElementById('saltyImage').src = images[today] || 'default.jpg';
+        const today = new Date();
+        const todayDate = today.getDate();
+        const todayDay = today.getDay();
         
-        if (today === 6 || today === 0) {
+        // Check if today is the last banking day before the 25th (generally 24th or earlier depending on the bank's holiday schedule)
+        const isLastBankDayBefore25th = (todayDate >= 18 && todayDate <= 24) && (todayDay !== 0 && todayDay !== 6); // Exclude weekends
+        
+        document.getElementById('saltyImage').src = images[todayDay] || 'default.jpg';
+        
+        if (todayDay === 6 || todayDay === 0) {
             document.getElementById('statusText').style.display = "block";
+        }
+        
+        if (isLastBankDayBefore25th) {
+            document.getElementById('bankDayText').style.display = "block";
         }
     </script>
 </body>
