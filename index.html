@@ -27,6 +27,15 @@
             .image-box {
                 width: 90%;
             }
+            .bottom-text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                bottom: 20px;
+                left: 0;
+                right: 0;
+            }
         }
         .image-box::before {
             content: "";
@@ -57,18 +66,17 @@
             font-weight: bold;
             margin-top: 10px;
         }
-        .version-text {
+        .bottom-text {
             position: fixed;
             bottom: 10px;
-            right: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+        .version-text {
             font-size: 0.8em;
             color: gray;
-        }
-        .donation-text {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            font-size: 0.8em;
         }
         .donation-text a {
             color: lightblue;
@@ -85,8 +93,10 @@
         <div id="statusText" style="display: none;" class="red-text">Nick is off for the weekend, but still salty</div>
     </div>
     
-    <div class="version-text">Version 2025.02.13.04 - under development</div>
-    <div class="donation-text"><a href="https://www.tesla.com" target="_blank">If you want to support the development, please consider donating</a></div>
+    <div class="bottom-text">
+        <div class="version-text">Version 2025.02.13.04 - under development</div>
+        <div class="donation-text"><a href="https://www.tesla.com" target="_blank">If you want to support the development, please consider donating</a></div>
+    </div>
     
     <script>
         const images = {
