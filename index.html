@@ -78,25 +78,20 @@
             bottom: 10px;
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
             padding: 0 10px;
-            max-width: 95%;
-            left: 50%;
-            transform: translateX(-50%);
         }
-        .version-text {
+        .version-text, .donation-text {
             font-size: 0.8em;
             color: gray;
-            white-space: nowrap;
+            margin: 5px;
+            max-width: 90%;
         }
         .donation-text a {
             color: lightblue;
             text-decoration: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 100%;
-            display: inline-block;
         }
     </style>
 </head>
@@ -110,7 +105,7 @@
     </div>
     
     <div class="bottom-text">
-        <div class="version-text">Version 2025.02.13.06 - under development</div>
+        <div class="version-text">Version 2025.02.13.07 - under development</div>
         <div class="donation-text"><a href="https://www.tesla.com" target="_blank">If you want to support the development, please consider donating</a></div>
     </div>
     
