@@ -74,8 +74,9 @@
             margin-top: 10px;
         }
         .green-text {
-            color: green;
-            font-size: 1.2em;
+            color: #a8e6a1; /* Light green similar to the dollar sign */
+            font-size: 2em; /* Same size as heading */
+            font-weight: bold;
             margin-top: 10px;
         }
         .bottom-text {
@@ -111,7 +112,7 @@
     </div>
     
     <div class="bottom-text">
-        <div class="version-text">Version 2025.02.13.09 - under development</div>
+        <div class="version-text">Version 2025.02.13.08 - under development</div>
         <div class="donation-text"><a href="https://www.tesla.com/da_dk" target="_blank">If you want to support the development, please consider donating</a></div>
     </div>
     
@@ -125,20 +126,27 @@
             6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif',
             0: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
         };
-        
+
+        // Get the current date and day
         const today = new Date();
         const todayDate = today.getDate();
         const todayDay = today.getDay();
         
-        // Check if today is the last banking day before the 25th (generally 24th or earlier depending on the bank's holiday schedule)
-        const isLastBankDayBefore25th = (todayDate >= 18 && todayDate <= 24) && (todayDay !== 0 && todayDay !== 6); // Exclude weekends
+        // Debugging: log the current date and day
+        console.log(`Current Date: ${today.toDateString()} (Day: ${todayDay}, Date: ${todayDate})`);
+
+        // Check if today is between the 18th and 24th and not a weekend (Saturday/Sunday)
+        const isLastBankDayBefore25th = todayDate >= 18 && todayDate <= 24 && (todayDay !== 0 && todayDay !== 6);
         
+        // Set the image for today
         document.getElementById('saltyImage').src = images[todayDay] || 'default.jpg';
-        
+
+        // Show "Nick is off for the weekend" on weekends
         if (todayDay === 6 || todayDay === 0) {
             document.getElementById('statusText').style.display = "block";
         }
-        
+
+        // Show the green text message only if it's the last bank day before the 25th
         if (isLastBankDayBefore25th) {
             document.getElementById('bankDayText').style.display = "block";
         }
