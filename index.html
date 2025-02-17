@@ -220,7 +220,7 @@
   </div>
 
   <div class="bottom-text">
-    <div class="version-text">Version 2025.02.17.07 - under development</div>
+    <div class="version-text">Version 2025.02.17.08 - under development</div>
     <div class="donation-text">
       <a href="https://www.tesla.com/da_dk" target="_blank">
         If you want to support the development, please consider donating
@@ -251,6 +251,7 @@
     const defaultImage = 'https://via.placeholder.com/600x400?text=Default+Image';
 
     let clickCount = 0;
+    let rainActive = false; // Track if rain is active
 
     // Get the current date and day (0 = Sunday, 6 = Saturday)
     const today = new Date();
@@ -289,7 +290,9 @@
       clickCount++;
       console.log('Click count:', clickCount);
       if (clickCount === 5) {
-        startRain();
+        if (!rainActive) {
+          startRain();
+        }
       }
     });
 
@@ -297,6 +300,7 @@
     function startRain() {
       const rainElement = document.getElementById('rain');
       rainElement.style.opacity = '1'; // Make rain visible
+      rainActive = true; // Set rain to active
 
       // Create 100 raindrops
       for (let i = 0; i < 100; i++) {
@@ -310,11 +314,13 @@
         rainElement.appendChild(raindrop);
       }
 
-      // Stop the rain after 5 seconds
-      setTimeout(function() {
-        rainElement.style.opacity = '0'; // Fade out the rain
-        rainElement.innerHTML = ''; // Remove the raindrops
-      }, 5000);
+      // Stop rain effect after 5 seconds and allow restart
+      setTimeout(function () {
+        rainElement.style.opacity = '0'; // Fade out rain
+        rainElement.innerHTML = ''; // Clear all raindrops
+        rainActive = false; // Reset rain status
+        clickCount = 0; // Reset click count after rain stops
+      }, 5000); // 5 seconds of rain
     }
   </script>
 </body>
