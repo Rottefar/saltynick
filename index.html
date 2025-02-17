@@ -14,7 +14,7 @@
       padding: 0;
     }
     h1 {
-      margin-top: 60px; /* ensures heading isn't overlapped on desktop */
+      margin-top: 60px; /* Default top margin */
     }
     .container {
       margin-top: 50px;
@@ -165,8 +165,9 @@
         width: 90%;
         max-width: 300px;
       }
+      /* Remove extra margin above heading on mobile */
       h1 {
-        margin-top: 100px; /* extra margin to account for the mobile button */
+        margin-top: 60px;
       }
     }
   </style>
@@ -189,7 +190,7 @@
   </div>
 
   <div class="bottom-text">
-    <div class="version-text">Version 2025.02.17.04 - under development</div>
+    <div class="version-text">Version 2025.02.17.05 - under development</div>
     <div class="donation-text">
       <a href="https://www.tesla.com/da_dk" target="_blank">
         If you want to support the development, please consider donating
