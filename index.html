@@ -1,199 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Is Nick salty today?</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        .image-box {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-            position: relative;
-            width: 600px;
-            max-width: 100%;
-        }
-        @media (max-width: 768px) {
-            .image-box {
-                width: 90%;
-            }
-            .bottom-text {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                bottom: 20px;
-                left: 0;
-                right: 0;
-                padding: 10px;
-            }
-            .donation-text {
-                margin-top: 5px;
-                word-wrap: break-word;
-                max-width: 90%;
-                text-align: center;
-            }
-        }
-        .image-box::before {
-            content: "";
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet, red);
-            border-radius: 15px;
-            z-index: -1;
-            animation: rainbow 5s linear infinite;
-        }
-        @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            position: relative;
-            z-index: 1;
-        }
-        .red-text {
-            color: red;
-            font-size: 2em;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .green-text {
-            color: #a8e6a1; /* Light green similar to the dollar sign */
-            font-size: 2em; /* Same size as heading */
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .bottom-text {
-            position: fixed;
-            bottom: 10px;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            text-align: center;
-            padding: 0 10px;
-        }
-        .version-text, .donation-text {
-            font-size: 0.8em;
-            color: gray;
-            margin: 5px;
-            max-width: 90%;
-        }
-        .donation-text a {
-            color: lightblue;
-            text-decoration: none;
-        }
-        
-        /* Styling for the button in the top right */
-        .popup-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: red;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        /* Styling for the popup (now double the size) */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: black;
-            color: red;
-            font-size: 6em;  /* doubled from 3em */
-            padding: 100px;  /* doubled from 50px */
-            border: 6px solid red;  /* doubled border width */
-            z-index: 100;
-            text-align: center;
-            border-radius: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Is Nick salty today?</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .image-box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      position: relative;
+      width: 600px;
+      max-width: 100%;
+    }
+    @media (max-width: 768px) {
+      .image-box {
+        width: 90%;
+      }
+      .bottom-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        padding: 10px;
+      }
+      .donation-text {
+        margin-top: 5px;
+        word-wrap: break-word;
+        max-width: 90%;
+        text-align: center;
+      }
+      /* Adjust the popup for mobile devices */
+      .popup {
+        font-size: 3em;  /* Reduced font-size for mobile */
+        padding: 50px;   /* Reduced padding for mobile */
+        border: 3px solid red;
+      }
+      /* Adjust the button for mobile devices */
+      .popup-button {
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
+    .image-box::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet, red);
+      border-radius: 15px;
+      z-index: -1;
+      animation: rainbow 5s linear infinite;
+    }
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      position: relative;
+      z-index: 1;
+    }
+    .red-text {
+      color: red;
+      font-size: 2em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .green-text {
+      color: #a8e6a1; /* Light green similar to the dollar sign */
+      font-size: 2em; /* Same size as heading */
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .bottom-text {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+      padding: 0 10px;
+    }
+    .version-text,
+    .donation-text {
+      font-size: 0.8em;
+      color: gray;
+      margin: 5px;
+      max-width: 90%;
+    }
+    .donation-text a {
+      color: lightblue;
+      text-decoration: none;
+    }
+    /* Styling for the button in the top right */
+    .popup-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    /* Styling for the popup (default desktop size) */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: black;
+      color: red;
+      font-size: 6em; /* double the original size */
+      padding: 100px; /* double the original padding */
+      border: 6px solid red; /* double border width */
+      z-index: 100;
+      text-align: center;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Is Nick salty today?</h1>
-    <div class="container">
-        <div class="image-box">
-            <img id="saltyImage" src="" alt="Nick's Mood">
-        </div>
-        <div id="statusText" style="display: none;" class="red-text">Nick is off for the weekend, but still salty</div>
-        <div id="bankDayText" style="display: none;" class="green-text">Even tho Nick just got paid, he is still salty</div>
+  <h1>Is Nick salty today?</h1>
+  <div class="container">
+    <div class="image-box">
+      <img id="saltyImage" src="" alt="Nick's Mood" />
     </div>
-    
-    <div class="bottom-text">
-        <div class="version-text">Version 2025.02.17.01 - under development</div>
-        <div class="donation-text"><a href="https://www.tesla.com/da_dk" target="_blank">If you want to support the development, please consider donating</a></div>
+    <div id="statusText" style="display: none;" class="red-text">
+      Nick is off for the weekend, but still salty
     </div>
+    <div id="bankDayText" style="display: none;" class="green-text">
+      Even tho Nick just got paid, he is still salty
+    </div>
+  </div>
 
-    <!-- Popup and button -->
-    <div id="popup" class="popup">SPURGT!</div>
-    <button class="popup-button" onclick="showPopup()">Click me</button>
-    
-    <script>
-        const images = {
-            1: 'https://media1.tenor.com/m/Qnebx8AMQBMAAAAC/yes-definitely.gif',
-            2: 'https://media1.tenor.com/m/VLOBdjEfwlMAAAAC/good-fine.gif',
-            3: 'https://media1.tenor.com/m/Q7w0HT6tS74AAAAC/oh-yes-oh-yeah.gif',
-            4: 'https://media1.tenor.com/m/TK-0xXvsw9oAAAAC/loki-tom-hiddleston.gif',
-            5: 'https://media1.tenor.com/m/gv9tLejGAiMAAAAC/austin-powers-mike-myers.gif',
-            6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif',
-            0: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
-        };
+  <div class="bottom-text">
+    <div class="version-text">Version 2025.02.17.02 - under development</div>
+    <div class="donation-text">
+      <a href="https://www.tesla.com/da_dk" target="_blank">If you want to support the development, please consider donating</a>
+    </div>
+  </div>
 
-        // Get the current date and day
-        const today = new Date();
-        const todayDate = today.getDate();
-        const todayDay = today.getDay();
-        
-        // Debugging: log the current date and day
-        console.log(`Current Date: ${today.toDateString()} (Day: ${todayDay}, Date: ${todayDate})`);
+  <!-- Popup and button -->
+  <div id="popup" class="popup">SPURGT!</div>
+  <button class="popup-button" onclick="showPopup()">Click me</button>
 
-        // Check if today is between the 18th and 24th and not a weekend (Saturday/Sunday)
-        const isLastBankDayBefore25th = todayDate >= 18 && todayDate <= 24 && (todayDay !== 0 && todayDay !== 6);
-        
-        // Set the image for today
-        document.getElementById('saltyImage').src = images[todayDay] || 'default.jpg';
+  <script>
+    const images = {
+      1: 'https://media1.tenor.com/m/Qnebx8AMQBMAAAAC/yes-definitely.gif',
+      2: 'https://media1.tenor.com/m/VLOBdjEfwlMAAAAC/good-fine.gif',
+      3: 'https://media1.tenor.com/m/Q7w0HT6tS74AAAAC/oh-yes-oh-yeah.gif',
+      4: 'https://media1.tenor.com/m/TK-0xXvsw9oAAAAC/loki-tom-hiddleston.gif',
+      5: 'https://media1.tenor.com/m/gv9tLejGAiMAAAAC/austin-powers-mike-myers.gif',
+      6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif',
+      0: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
+    };
 
-        // Show "Nick is off for the weekend" on weekends
-        if (todayDay === 6 || todayDay === 0) {
-            document.getElementById('statusText').style.display = "block";
-        }
+    // Get the current date and day
+    const today = new Date();
+    const todayDate = today.getDate();
+    const todayDay = today.getDay();
 
-        // Show the green text message only if it's the last bank day before the 25th
-        if (isLastBankDayBefore25th) {
-            document.getElementById('bankDayText').style.display = "block";
-        }
+    // Debugging: log the current date and day
+    console.log(`Current Date: ${today.toDateString()} (Day: ${todayDay}, Date: ${todayDate})`);
 
-        // Function to show the popup
-        function showPopup() {
-            document.getElementById('popup').style.display = "block";
-            setTimeout(function() {
-                document.getElementById('popup').style.display = "none";
-            }, 2000); // Hide after 2 seconds
-        }
-    </script>
+    // Check if today is between the 18th and 24th and not a weekend (Saturday/Sunday)
+    const isLastBankDayBefore25th = todayDate >= 18 && todayDate <= 24 && (todayDay !== 0 && todayDay !== 6);
+
+    // Set the image for today
+    document.getElementById('saltyImage').src = images[todayDay] || 'default.jpg';
+
+    // Show "Nick is off for the weekend" on weekends
+    if (todayDay === 6 || todayDay === 0) {
+      document.getElementById('statusText').style.display = "block";
+    }
+
+    // Show the green text message only if it's the last bank day before the 25th
+    if (isLastBankDayBefore25th) {
+      document.getElementById('bankDayText').style.display = "block";
+    }
+
+    // Function to show the popup
+    function showPopup() {
+      document.getElementById('popup').style.display = "block";
+      setTimeout(function () {
+        document.getElementById('popup').style.display = "none";
+      }, 2000); // Hide after 2 seconds
+    }
+  </script>
 </body>
 </html>
