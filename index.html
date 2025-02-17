@@ -220,7 +220,7 @@
   </div>
 
   <div class="bottom-text">
-    <div class="version-text">Version 2025.02.17.06 - under development</div>
+    <div class="version-text">Version 2025.02.17.07 - under development</div>
     <div class="donation-text">
       <a href="https://www.tesla.com/da_dk" target="_blank">
         If you want to support the development, please consider donating
@@ -309,6 +309,12 @@
         raindrop.style.animationDelay = `${Math.random() * 2}s`;
         rainElement.appendChild(raindrop);
       }
+
+      // Stop the rain after 5 seconds
+      setTimeout(function() {
+        rainElement.style.opacity = '0'; // Fade out the rain
+        rainElement.innerHTML = ''; // Remove the raindrops
+      }, 5000);
     }
   </script>
 </body>
