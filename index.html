@@ -99,6 +99,38 @@
             color: lightblue;
             text-decoration: none;
         }
+        
+        /* Styling for the button in the top right */
+        .popup-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Styling for the popup (now double the size) */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
+            color: red;
+            font-size: 6em;  /* doubled from 3em */
+            padding: 100px;  /* doubled from 50px */
+            border: 6px solid red;  /* doubled border width */
+            z-index: 100;
+            text-align: center;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -112,9 +144,13 @@
     </div>
     
     <div class="bottom-text">
-        <div class="version-text">Version 2025.02.13.08 - under development</div>
+        <div class="version-text">Version 2025.02.17.01 - under development</div>
         <div class="donation-text"><a href="https://www.tesla.com/da_dk" target="_blank">If you want to support the development, please consider donating</a></div>
     </div>
+
+    <!-- Popup and button -->
+    <div id="popup" class="popup">SPURGT!</div>
+    <button class="popup-button" onclick="showPopup()">Click me</button>
     
     <script>
         const images = {
@@ -149,6 +185,14 @@
         // Show the green text message only if it's the last bank day before the 25th
         if (isLastBankDayBefore25th) {
             document.getElementById('bankDayText').style.display = "block";
+        }
+
+        // Function to show the popup
+        function showPopup() {
+            document.getElementById('popup').style.display = "block";
+            setTimeout(function() {
+                document.getElementById('popup').style.display = "none";
+            }, 2000); // Hide after 2 seconds
         }
     </script>
 </body>
