@@ -12,6 +12,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      position: relative;
     }
     h1 {
       margin-top: 60px; /* Default top margin */
@@ -170,6 +171,34 @@
         margin-top: 60px;
       }
     }
+
+    /* Rain effect container */
+    .rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    /* Raindrop using an image */
+    .raindrop {
+      position: absolute;
+      /* Replace the URL below with your rain image link */
+      background: url(https://i.imgur.com/0m5wWgu.png) no-repeat center center;
+      background-size: contain;
+      width: 40px;  /* Adjust as needed */
+      height: 40px; /* Adjust as needed */
+      animation: fall 2s linear infinite;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
   </style>
 </head>
 <body>
@@ -179,6 +208,7 @@
 
   <div class="container">
     <div class="image-box">
+      <!-- The image will be embedded here; if no valid key is found, the default image is used -->
       <img id="saltyImage" src="" alt="Nick's Mood" />
     </div>
     <div id="statusText" style="display: none;" class="red-text">
@@ -190,7 +220,7 @@
   </div>
 
   <div class="bottom-text">
-    <div class="version-text">Version 2025.02.17.05 - under development</div>
+    <div class="version-text">Version 2025.02.17.06 - under development</div>
     <div class="donation-text">
       <a href="https://www.tesla.com/da_dk" target="_blank">
         If you want to support the development, please consider donating
@@ -202,30 +232,38 @@
   <div id="popup" class="popup">SPURGT!</div>
   <button class="popup-button-desktop" onclick="showPopup()">Click me</button>
 
+  <!-- Rain effect container -->
+  <div id="rain" class="rain"></div>
+
   <script>
+    // Image URLs keyed by day number (0 for Sunday, 1 for Monday, etc.)
     const images = {
+      0: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif',
       1: 'https://media1.tenor.com/m/Qnebx8AMQBMAAAAC/yes-definitely.gif',
       2: 'https://media1.tenor.com/m/VLOBdjEfwlMAAAAC/good-fine.gif',
       3: 'https://media1.tenor.com/m/Q7w0HT6tS74AAAAC/oh-yes-oh-yeah.gif',
       4: 'https://media1.tenor.com/m/TK-0xXvsw9oAAAAC/loki-tom-hiddleston.gif',
       5: 'https://media1.tenor.com/m/gv9tLejGAiMAAAAC/austin-powers-mike-myers.gif',
-      6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif',
-      0: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
+      6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
     };
 
-    // Get the current date and day
+    // Default image in case today's day key isn't found.
+    const defaultImage = 'https://via.placeholder.com/600x400?text=Default+Image';
+
+    let clickCount = 0;
+
+    // Get the current date and day (0 = Sunday, 6 = Saturday)
     const today = new Date();
     const todayDate = today.getDate();
     const todayDay = today.getDay();
 
-    // Debugging: log the current date and day
     console.log(`Current Date: ${today.toDateString()} (Day: ${todayDay}, Date: ${todayDate})`);
 
     // Check if today is between the 18th and 24th and not a weekend (Saturday/Sunday)
     const isLastBankDayBefore25th = todayDate >= 18 && todayDate <= 24 && (todayDay !== 0 && todayDay !== 6);
 
-    // Set the image for today
-    document.getElementById('saltyImage').src = images[todayDay] || 'default.jpg';
+    // Set the image for today in the image box
+    document.getElementById('saltyImage').src = images[todayDay] || defaultImage;
 
     // Show "Nick is off for the weekend" on weekends
     if (todayDay === 6 || todayDay === 0) {
@@ -237,13 +275,40 @@
       document.getElementById('bankDayText').style.display = "block";
     }
 
-    // Function to show the popup
+    // Function to show the popup message
     function showPopup() {
       const popup = document.getElementById('popup');
       popup.style.display = "block";
       setTimeout(function () {
         popup.style.display = "none";
       }, 2000); // Hide after 2 seconds
+    }
+
+    // Listen for clicks anywhere on the document and log click counts
+    document.addEventListener('click', function (event) {
+      clickCount++;
+      console.log('Click count:', clickCount);
+      if (clickCount === 5) {
+        startRain();
+      }
+    });
+
+    // Function to start the rain effect
+    function startRain() {
+      const rainElement = document.getElementById('rain');
+      rainElement.style.opacity = '1'; // Make rain visible
+
+      // Create 100 raindrops
+      for (let i = 0; i < 100; i++) {
+        const raindrop = document.createElement('div');
+        raindrop.classList.add('raindrop');
+        // Random horizontal position
+        raindrop.style.left = `${Math.random() * 100}vw`;
+        // Random animation duration and delay for a more natural effect
+        raindrop.style.animationDuration = `${Math.random() * 2 + 2}s`;
+        raindrop.style.animationDelay = `${Math.random() * 2}s`;
+        rainElement.appendChild(raindrop);
+      }
     }
   </script>
 </body>
