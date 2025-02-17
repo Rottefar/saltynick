@@ -10,6 +10,11 @@
       color: white;
       text-align: center;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 60px; /* extra space to ensure heading isn't overlapped */
     }
     .container {
       margin-top: 50px;
@@ -42,19 +47,6 @@
         word-wrap: break-word;
         max-width: 90%;
         text-align: center;
-      }
-      /* Adjust the popup for mobile devices */
-      .popup {
-        font-size: 3em;  /* Reduced font-size for mobile */
-        padding: 50px;   /* Reduced padding for mobile */
-        border: 3px solid red;
-      }
-      /* Adjust the button for mobile devices */
-      .popup-button {
-        top: 10px;
-        right: 10px;
-        padding: 8px 16px;
-        font-size: 14px;
       }
     }
     .image-box::before {
@@ -113,7 +105,7 @@
       color: lightblue;
       text-decoration: none;
     }
-    /* Styling for the button in the top right */
+    /* Styling for the button in the top right (desktop) */
     .popup-button {
       position: fixed;
       top: 20px;
@@ -127,7 +119,7 @@
       cursor: pointer;
       z-index: 10;
     }
-    /* Styling for the popup (default desktop size) */
+    /* Styling for the popup (desktop) */
     .popup {
       display: none;
       position: fixed;
@@ -136,12 +128,33 @@
       transform: translate(-50%, -50%);
       background-color: black;
       color: red;
-      font-size: 6em; /* double the original size */
-      padding: 100px; /* double the original padding */
-      border: 6px solid red; /* double border width */
+      font-size: 6em; /* desktop size */
+      padding: 100px;
+      border: 6px solid red;
       z-index: 100;
       text-align: center;
       border-radius: 10px;
+    }
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      /* Push the button down so it doesn't overlap the heading */
+      .popup-button {
+        top: 70px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+      /* Scale down the popup for mobile screens */
+      .popup {
+        font-size: 2.5em;
+        padding: 20px;
+        border: 2px solid red;
+        width: 90%;
+        max-width: 300px;
+      }
+      h1 {
+        margin-top: 100px; /* extra margin to account for the button */
+      }
     }
   </style>
 </head>
@@ -160,7 +173,7 @@
   </div>
 
   <div class="bottom-text">
-    <div class="version-text">Version 2025.02.17.02 - under development</div>
+    <div class="version-text">Version 2025.02.17.03 - under development</div>
     <div class="donation-text">
       <a href="https://www.tesla.com/da_dk" target="_blank">If you want to support the development, please consider donating</a>
     </div>
@@ -207,9 +220,10 @@
 
     // Function to show the popup
     function showPopup() {
-      document.getElementById('popup').style.display = "block";
+      const popup = document.getElementById('popup');
+      popup.style.display = "block";
       setTimeout(function () {
-        document.getElementById('popup').style.display = "none";
+        popup.style.display = "none";
       }, 2000); // Hide after 2 seconds
     }
   </script>
