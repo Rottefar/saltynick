@@ -29,6 +29,19 @@
       width: 600px;
       max-width: 100%;
     }
+    /* Desktop adjustments: fixed 600px square with image fully contained */
+    @media (min-width: 769px) {
+      .image-box {
+        width: 600px;
+        height: 600px;
+        margin: 0 auto;
+      }
+      .image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
     @media (max-width: 768px) {
       .image-box {
         width: 90%;
@@ -67,8 +80,6 @@
       100% { filter: hue-rotate(360deg); }
     }
     img {
-      width: 100%;
-      height: auto;
       border-radius: 5px;
       position: relative;
       z-index: 1;
@@ -220,9 +231,9 @@
   </div>
 
   <div class="bottom-text">
-    <div class="version-text">Version 2025.02.17.08 - under development</div>
+    <div class="version-text">Version 2025.02.18.01 - under development</div>
     <div class="donation-text">
-      <a href="https://www.tesla.com/da_dk" target="_blank">
+      <a href="https://10er.com/saltynickdk" target="_blank">
         If you want to support the development, please consider donating
       </a>
     </div>
@@ -253,26 +264,37 @@
     let clickCount = 0;
     let rainActive = false; // Track if rain is active
 
-    // Get the current date and day (0 = Sunday, 6 = Saturday)
+    // Get the current date
     const today = new Date();
     const todayDate = today.getDate();
     const todayDay = today.getDay();
 
     console.log(`Current Date: ${today.toDateString()} (Day: ${todayDay}, Date: ${todayDate})`);
 
-    // Check if today is between the 18th and 24th and not a weekend (Saturday/Sunday)
-    const isLastBankDayBefore25th = todayDate >= 18 && todayDate <= 24 && (todayDay !== 0 && todayDay !== 6);
+    // Determine the actual payday (last bank day before the 25th)
+    // Default payday is the 25th. If the 25th is on a weekend,
+    // move payday to Friday (24th if Saturday, 23rd if Sunday).
+    let payday = 25;
+    const paydayWeekday = new Date(today.getFullYear(), today.getMonth(), 25).getDay();
+
+    if (paydayWeekday === 6) {
+      payday = 24; // Saturday -> Friday
+    } else if (paydayWeekday === 0) {
+      payday = 23; // Sunday -> Friday
+    }
+
+    console.log(`Payday is set to: ${payday}`);
 
     // Set the image for today in the image box
     document.getElementById('saltyImage').src = images[todayDay] || defaultImage;
 
-    // Show "Nick is off for the weekend" on weekends
+    // Show "Nick is off for the weekend" on weekends (Saturday or Sunday)
     if (todayDay === 6 || todayDay === 0) {
       document.getElementById('statusText').style.display = "block";
     }
 
-    // Show the green text message only if it's the last bank day before the 25th
-    if (isLastBankDayBefore25th) {
+    // Show the green text message only if today is payday
+    if (todayDate === payday) {
       document.getElementById('bankDayText').style.display = "block";
     }
 
