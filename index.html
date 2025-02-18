@@ -106,12 +106,23 @@
       text-align: center;
       padding: 0 10px;
     }
-    .version-text,
+    .version-text {
+      font-size: 0.8em;
+      color: gray;
+      margin: 5px;
+      max-width: 90%;
+      cursor: pointer;
+    }
+    /* Only the "under development" part is red */
+    .under-development {
+      color: red;
+    }
     .donation-text {
       font-size: 0.8em;
       color: gray;
       margin: 5px;
       max-width: 90%;
+      cursor: pointer;
     }
     .donation-text a {
       color: lightblue;
@@ -182,7 +193,6 @@
         margin-top: 60px;
       }
     }
-
     /* Rain effect container */
     .rain {
       position: fixed;
@@ -210,6 +220,55 @@
         transform: translateY(100vh);
       }
     }
+    /* Changelog Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+    .modal-content {
+      background: #222;
+      color: #eee;
+      padding: 20px 30px;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+      text-align: left;
+    }
+    .modal-header {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+    }
+    .modal-body {
+      font-size: 1em;
+      line-height: 1.5em;
+      margin-bottom: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .modal-close:hover {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -231,9 +290,11 @@
   </div>
 
   <div class="bottom-text">
-    <div class="version-text">Version 2025.02.18.01 - under development</div>
+    <div class="version-text" id="versionText">
+      Version 2025.02.18.02 - <span class="under-development">under development</span>
+    </div>
     <div class="donation-text">
-      <a href="https://10er.com/saltynickdk" target="_blank">
+      <a href="https://www.tesla.com/da_dk" target="_blank">
         If you want to support the development, please consider donating
       </a>
     </div>
@@ -245,6 +306,23 @@
 
   <!-- Rain effect container -->
   <div id="rain" class="rain"></div>
+
+  <!-- Changelog Modal -->
+  <div id="changelogModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeChangelog()">&times;</button>
+      <div class="modal-header">Changelog</div>
+      <div class="modal-body">
+        <ul>
+          <li><strong>2025.02.18.02:</strong> Initial under development release.</li>
+          <li>Fixed payday logic so the green message shows on the correct day.</li>
+          <li>Improved desktop image layout with a fixed 600px size and rainbow border.</li>
+          <li>Added a fun rain effect triggered by multiple clicks.</li>
+          <li>Added this changelog popup for version info.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Image URLs keyed by day number (0 for Sunday, 1 for Monday, etc.)
@@ -298,7 +376,7 @@
       document.getElementById('bankDayText').style.display = "block";
     }
 
-    // Function to show the popup message
+    // Function to show the main popup message
     function showPopup() {
       const popup = document.getElementById('popup');
       popup.style.display = "block";
@@ -307,7 +385,7 @@
       }, 2000); // Hide after 2 seconds
     }
 
-    // Listen for clicks anywhere on the document and log click counts
+    // Listen for clicks anywhere on the document and log click counts for the rain effect
     document.addEventListener('click', function (event) {
       clickCount++;
       console.log('Click count:', clickCount);
@@ -344,6 +422,27 @@
         clickCount = 0; // Reset click count after rain stops
       }, 5000); // 5 seconds of rain
     }
+
+    // Changelog modal functions
+    function showChangelog() {
+      document.getElementById('changelogModal').style.display = "flex";
+    }
+    function closeChangelog() {
+      document.getElementById('changelogModal').style.display = "none";
+    }
+
+    // Add click event on version text to open changelog modal
+    document.getElementById('versionText').addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent triggering other click events
+      showChangelog();
+    });
+
+    // Close modal when clicking outside of modal content
+    document.getElementById('changelogModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeChangelog();
+      }
+    });
   </script>
 </body>
 </html>
