@@ -46,10 +46,8 @@
     @media (max-width: 768px) {
       .image-box {
         width: 90%;
-        /* Use aspect-ratio to keep it square while ensuring it fits in the viewport */
+        max-width: 300px; /* Limit the size of the box on mobile */
         aspect-ratio: 1 / 1;
-        /* Ensure the box doesn’t exceed the viewport height (adjust 120px as needed for header/bottom spacing) */
-        max-height: calc(100vh - 120px);
         margin: 0 auto;
       }
       .image-box img {
