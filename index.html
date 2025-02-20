@@ -24,7 +24,7 @@
         /* Typography */
         h1 {
             padding-top: 2rem;
-            font-size: clamp(1.75rem, 5vw, 2.5rem); /* Scales between 1.75rem and 2.5rem */
+            font-size: clamp(1.5rem, 5vw, 2.5rem); /* Adjusted min for mobile */
             margin-bottom: 1.5rem;
         }
 
@@ -35,13 +35,13 @@
             margin: 0 auto;
         }
 
-        /* Image Box Styles - Enhanced Scaling */
+        /* Image Box Styles */
         .image-box {
             position: relative;
             display: inline-block;
             margin: 0 auto;
             background: none;
-            width: clamp(200px, 60vw, 600px); /* Scales between 200px and 600px based on viewport width */
+            width: clamp(200px, 60vw, 600px); /* Default for desktop */
             max-width: 100%;
         }
 
@@ -50,12 +50,12 @@
             display: block;
             background: #fff;
             border-radius: 5px;
-            padding: clamp(0.05rem, 0.2vw, 0.1rem); /* Minimal padding that scales slightly */
+            padding: clamp(0.05rem, 0.2vw, 0.1rem);
         }
 
         .image-box img {
-            width: 100%; /* Fills the container width */
-            height: auto; /* Maintains aspect ratio */
+            width: 100%;
+            height: auto;
             object-fit: contain;
             border-radius: 5px;
             display: block;
@@ -85,14 +85,14 @@
         /* Status Text */
         .red-text {
             color: red;
-            font-size: clamp(1.25rem, 4vw, 2rem); /* Scales between 1.25rem and 2rem */
+            font-size: clamp(1rem, 4vw, 2rem); /* Adjusted min for mobile */
             font-weight: bold;
             margin-top: 1rem;
         }
 
         .green-text {
             color: #a8e6a1;
-            font-size: clamp(1.25rem, 4vw, 2rem);
+            font-size: clamp(1rem, 4vw, 2rem);
             font-weight: bold;
             margin-top: 1rem;
         }
@@ -105,8 +105,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            padding: 0.625rem 1.25rem;
-            font-size: clamp(0.875rem, 2vw, 1rem); /* Scales button text */
+            padding: clamp(0.5rem, 2vw, 0.625rem) clamp(1rem, 3vw, 1.25rem); /* Scales padding */
+            font-size: clamp(0.75rem, 2vw, 1rem);
         }
 
         .popup-button-desktop {
@@ -130,12 +130,12 @@
             transform: translate(-50%, -50%);
             background-color: #000;
             color: red;
-            padding: clamp(1rem, 5vw, 2rem); /* Scales padding */
-            border: clamp(2px, 1vw, 6px) solid red; /* Scales border */
+            padding: clamp(0.75rem, 5vw, 2rem);
+            border: clamp(2px, 1vw, 6px) solid red;
             border-radius: 10px;
             z-index: 100;
             font-weight: bold;
-            font-size: clamp(1.5rem, 10vw, 6rem); /* Scales text */
+            font-size: clamp(1.25rem, 10vw, 6rem);
         }
 
         /* Footer */
@@ -153,7 +153,7 @@
 
         .version-text,
         .donation-text {
-            font-size: clamp(0.75rem, 1.5vw, 0.9rem); /* Scales footer text */
+            font-size: clamp(0.65rem, 2vw, 0.9rem); /* Adjusted min for mobile */
             color: gray;
             cursor: pointer;
             max-width: 90%;
@@ -185,8 +185,8 @@
             position: absolute;
             background: url(https://i.imgur.com/0m5wWgu.png) no-repeat center center;
             background-size: contain;
-            width: clamp(20px, 4vw, 40px); /* Scales raindrop size */
-            height: clamp(20px, 4vw, 40px);
+            width: clamp(15px, 4vw, 40px); /* Adjusted min for mobile */
+            height: clamp(15px, 4vw, 40px);
             animation: fall 2s linear infinite;
         }
 
@@ -208,7 +208,7 @@
         .modal-content {
             background: #222;
             color: #eee;
-            padding: clamp(1rem, 3vw, 1.5rem);
+            padding: clamp(0.75rem, 3vw, 1.5rem);
             border-radius: 8px;
             max-width: 600px;
             width: 90%;
@@ -216,7 +216,7 @@
         }
 
         .modal-header {
-            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-size: clamp(1rem, 3vw, 1.5rem); /* Adjusted min for mobile */
             margin-bottom: 1rem;
             border-bottom: 1px solid #444;
             padding-bottom: 0.5rem;
@@ -226,7 +226,7 @@
             line-height: 1.6;
             max-height: 400px;
             overflow-y: auto;
-            font-size: clamp(0.875rem, 2vw, 1rem);
+            font-size: clamp(0.75rem, 2vw, 1rem); /* Adjusted min for mobile */
         }
 
         .modal-close {
@@ -236,7 +236,7 @@
             background: none;
             border: none;
             color: #aaa;
-            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-size: clamp(1rem, 3vw, 1.5rem);
             cursor: pointer;
         }
 
@@ -244,10 +244,18 @@
             color: #fff;
         }
 
-        /* Media Queries for Fine-Tuning */
+        /* Media Queries */
         @media (max-width: 768px) {
             .image-box {
-                width: clamp(150px, 80vw, 300px); /* Slightly wider range for mobile */
+                width: clamp(120px, 85vw, 400px); /* Wider range for mobile scaling */
+            }
+
+            .container {
+                padding: clamp(1rem, 5vw, 2rem); /* Scales padding on mobile */
+            }
+
+            .bottom-text {
+                padding: clamp(0.5rem, 2vw, 0.625rem); /* Scales footer padding */
             }
 
             .popup-button-desktop {
@@ -261,7 +269,7 @@
 
         @media (min-width: 769px) {
             .image-box {
-                width: clamp(300px, 50vw, 600px); /* Smoother scaling for desktop */
+                width: clamp(300px, 50vw, 600px); /* Desktop scaling */
             }
         }
     </style>
