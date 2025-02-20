@@ -1,463 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Is Nick salty today?</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      position: relative;
-    }
-    h1 {
-      margin-top: 60px; /* Default top margin */
-    }
-    .container {
-      margin-top: 50px;
-    }
-    .image-box {
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      display: inline-block;
-      position: relative;
-      width: 600px;
-      max-width: 100%;
-    }
-    /* Desktop adjustments: fixed 600px square with image fully contained */
-    @media (min-width: 769px) {
-      .image-box {
-        width: 600px;
-        height: 600px;
-        margin: 0 auto;
-      }
-      .image-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-    /* Mobile adjustments */
-    @media (max-width: 768px) {
-      .image-box {
-        width: 90%;
-        max-width: 300px; /* Limit the size of the box on mobile */
-        aspect-ratio: 1 / 1;
-        margin: 0 auto;
-        padding: 10px;  /* Reduced padding for a tighter fit with the rainbow border */
-      }
-      .image-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-      .bottom-text {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-        padding: 10px;
-      }
-      .donation-text {
-        margin-top: 5px;
-        word-wrap: break-word;
-        max-width: 90%;
-        text-align: center;
-      }
-      /* Remove extra margin above heading on mobile */
-      h1 {
-        margin-top: 60px;
-      }
-    }
-    .image-box::before {
-      content: "";
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      right: -5px;
-      bottom: -5px;
-      background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet, red);
-      border-radius: 15px;
-      z-index: -1;
-      animation: rainbow 5s linear infinite;
-    }
-    @keyframes rainbow {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-    img {
-      border-radius: 5px;
-      position: relative;
-      z-index: 1;
-    }
-    .red-text {
-      color: red;
-      font-size: 2em;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    .green-text {
-      color: #a8e6a1; /* Light green similar to the dollar sign */
-      font-size: 2em; /* Same size as heading */
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    .bottom-text {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      text-align: center;
-      padding: 0 10px;
-    }
-    .version-text {
-      font-size: 0.8em;
-      color: gray;
-      margin: 5px;
-      max-width: 90%;
-      cursor: pointer;
-    }
-    /* Only the "under development" part is red */
-    .under-development {
-      color: red;
-    }
-    .donation-text {
-      font-size: 0.8em;
-      color: gray;
-      margin: 5px;
-      max-width: 90%;
-      cursor: pointer;
-    }
-    .donation-text a {
-      color: lightblue;
-      text-decoration: none;
-    }
-    /* Desktop button styling */
-    .popup-button-desktop {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: red;
-      color: white;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 10;
-    }
-    /* Mobile button styling (hidden on desktop) */
-    .popup-button-mobile {
-      display: none;
-      background-color: red;
-      color: white;
-      padding: 8px 16px;
-      font-size: 14px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin: 20px auto;
-    }
-    /* Desktop popup styling */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: black;
-      color: red;
-      font-size: 6em;
-      padding: 100px;
-      border: 6px solid red;
-      z-index: 100;
-      text-align: center;
-      border-radius: 10px;
-    }
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
-      /* Hide desktop button on mobile */
-      .popup-button-desktop {
-        display: none;
-      }
-      /* Show mobile button on mobile and position it under the heading */
-      .popup-button-mobile {
-        display: block;
-      }
-      /* Scale down the popup for mobile screens */
-      .popup {
-        font-size: 2.5em;
-        padding: 20px;
-        border: 2px solid red;
-        width: 90%;
-        max-width: 300px;
-      }
-      /* Remove extra margin above heading on mobile */
-      h1 {
-        margin-top: 60px;
-      }
-    }
-    /* Rain effect container */
-    .rain {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-    }
-    /* Raindrop using an image */
-    .raindrop {
-      position: absolute;
-      /* Replace the URL below with your rain image link */
-      background: url(https://i.imgur.com/0m5wWgu.png) no-repeat center center;
-      background-size: contain;
-      width: 40px;  /* Adjust as needed */
-      height: 40px; /* Adjust as needed */
-      animation: fall 2s linear infinite;
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(100vh);
-      }
-    }
-    /* Changelog Modal Styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 200;
-    }
-    .modal-content {
-      background: #222;
-      color: #eee;
-      padding: 20px 30px;
-      border-radius: 8px;
-      max-width: 600px;
-      width: 90%;
-      position: relative;
-      text-align: left;
-    }
-    .modal-header {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #444;
-      padding-bottom: 5px;
-    }
-    .modal-body {
-      font-size: 1em;
-      line-height: 1.5em;
-      margin-bottom: 20px;
-      max-height: 400px;
-      overflow-y: auto;
-    }
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      background: none;
-      border: none;
-      color: #aaa;
-      font-size: 1.2em;
-      cursor: pointer;
-    }
-    .modal-close:hover {
-      color: #fff;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is Nick Salty Today?</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Typography */
+        h1 {
+            padding-top: 2rem;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Main Container */
+        .container {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Image Box Styles */
+        .image-box {
+            background-color: #fff;
+            position: relative;
+            margin: 0 auto;
+            display: inline-block; /* Makes the box fit the image size */
+            padding: 0.5rem; /* Reduced padding for tighter fit */
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 5px;
+            position: relative;
+            z-index: 1;
+            display: block; /* Removes any bottom gap */
+        }
+
+        /* Rainbow Border Effect */
+        .image-box::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet, red);
+            border-radius: 10px; /* Slightly smaller radius than before */
+            z-index: -1;
+            animation: rainbow 5s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Status Text */
+        .red-text {
+            color: red;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .green-text {
+            color: #a8e6a1;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* Buttons */
+        .popup-button-desktop,
+        .popup-button-mobile {
+            background-color: red;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 0.625rem 1.25rem;
+            font-size: 1rem;
+        }
+
+        .popup-button-desktop {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+        }
+
+        .popup-button-mobile {
+            display: none;
+            margin: 1rem auto;
+        }
+
+        /* Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000;
+            color: red;
+            padding: 2rem;
+            border: 6px solid red;
+            border-radius: 10px;
+            z-index: 100;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .bottom-text {
+            position: fixed;
+            bottom: 0.625rem;
+            left: 0;
+            right: 0;
+            padding: 0.625rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .version-text,
+        .donation-text {
+            font-size: 0.9rem;
+            color: gray;
+            cursor: pointer;
+            max-width: 90%;
+        }
+
+        .donation-text a {
+            color: lightblue;
+            text-decoration: none;
+        }
+
+        .under-development {
+            color: red;
+        }
+
+        /* Rain Effect */
+        .rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .raindrop {
+            position: absolute;
+            background: url(https://i.imgur.com/0m5wWgu.png) no-repeat center center;
+            background-size: contain;
+            width: 40px;
+            height: 40px;
+            animation: fall 2s linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .modal-content {
+            background: #222;
+            color: #eee;
+            padding: 1.5rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-header {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5rem;
+        }
+
+        .modal-body {
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.625rem;
+            right: 0.9375rem;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .image-box {
+                width: 600px;
+                height: 600px;
+            }
+            .popup {
+                font-size: 6rem;
+                padding: 4rem;
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .image-box {
+                width: 90%;
+                max-width: 300px;
+                aspect-ratio: 1 / 1;
+                padding: 0.25rem; /* Even smaller padding for mobile */
+            }
+
+            .popup-button-desktop {
+                display: none;
+            }
+
+            .popup-button-mobile {
+                display: block;
+            }
+
+            .popup {
+                font-size: 2rem;
+                padding: 1rem;
+                border: 2px solid red;
+                width: 90%;
+                max-width: 300px;
+            }
+
+            .red-text,
+            .green-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Is Nick salty today?</h1>
-  <!-- Mobile button appears here under the heading -->
-  <button class="popup-button-mobile" onclick="showPopup()">Click me</button>
+    <header>
+        <h1>Is Nick Salty Today?</h1>
+        <button class="popup-button-mobile" onclick="showPopup()">Click me</button>
+    </header>
 
-  <div class="container">
-    <div class="image-box">
-      <!-- The image will be embedded here; if no valid key is found, the default image is used -->
-      <img id="saltyImage" src="" alt="Nick's Mood" />
+    <main class="container">
+        <div class="image-box">
+            <img id="saltyImage" src="" alt="Nick's Mood">
+        </div>
+        <div id="statusText" style="display: none;" class="red-text">
+            Nick is off for the weekend, but still salty
+        </div>
+        <div id="bankDayText" style="display: none;" class="green-text">
+            Even tho Nick just got paid, he is still salty
+        </div>
+    </main>
+
+    <footer class="bottom-text">
+        <div class="version-text" id="versionText">
+            Version 2025.02.18.02 - <span class="under-development">under development</span>
+        </div>
+        <div class="donation-text">
+            <a href="https://10er.com/saltynickdk" target="_blank">
+                Support development with a donation
+            </a>
+        </div>
+    </footer>
+
+    <button class="popup-button-desktop" onclick="showPopup()">Click me</button>
+    <div id="popup" class="popup">SPURGT!</div>
+    <div id="rain" class="rain"></div>
+
+    <div id="changelogModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeChangelog()">×</button>
+            <div class="modal-header">Changelog</div>
+            <div class="modal-body">
+                <ul>
+                    <li><strong>2025.02.18.02:</strong> Initial under development release.</li>
+                    <li>Fixed payday logic for correct day display</li>
+                    <li>Improved desktop image layout (600px)</li>
+                    <li>Added rainbow border effect</li>
+                    <li>Implemented rain effect on multiple clicks</li>
+                    <li>Added changelog popup</li>
+                    <li>Included 10'er.com donation link</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div id="statusText" style="display: none;" class="red-text">
-      Nick is off for the weekend, but still salty
-    </div>
-    <div id="bankDayText" style="display: none;" class="green-text">
-      Even tho Nick just got paid, he is still salty
-    </div>
-  </div>
 
-  <div class="bottom-text">
-    <div class="version-text" id="versionText">
-      Version 2025.02.18.02 - <span class="under-development">under development</span>
-    </div>
-    <div class="donation-text">
-      <a href="https://10er.com/saltynickdk" target="_blank">
-        If you want to support the development, please consider donating
-      </a>
-    </div>
-  </div>
+    <script>
+        const images = {
+            0: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif',
+            1: 'https://media1.tenor.com/m/Qnebx8AMQBMAAAAC/yes-definitely.gif',
+            2: 'https://media1.tenor.com/m/VLOBdjEfwlMAAAAC/good-fine.gif',
+            3: 'https://media1.tenor.com/m/Q7w0HT6tS74AAAAC/oh-yes-oh-yeah.gif',
+            4: 'https://media1.tenor.com/m/TK-0xXvsw9oAAAAC/loki-tom-hiddleston.gif',
+            5: 'https://media1.tenor.com/m/gv9tLejGAiMAAAAC/austin-powers-mike-myers.gif',
+            6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
+        };
 
-  <!-- Desktop popup and button -->
-  <div id="popup" class="popup">SPURGT!</div>
-  <button class="popup-button-desktop" onclick="showPopup()">Click me</button>
+        const defaultImage = 'https://via.placeholder.com/600x400?text=Default+Image';
+        let clickCount = 0;
+        let rainActive = false;
 
-  <!-- Rain effect container -->
-  <div id="rain" class="rain"></div>
+        // Date Logic
+        const today = new Date();
+        const todayDate = today.getDate();
+        const todayDay = today.getDay();
 
-  <!-- Changelog Modal -->
-  <div id="changelogModal" class="modal-overlay">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeChangelog()">&times;</button>
-      <div class="modal-header">Changelog</div>
-      <div class="modal-body">
-        <ul>
-          <li><strong>2025.02.18.02:</strong> Initial under development release.</li>
-          <li>Fixed payday logic so the green message shows on the correct day.</li>
-          <li>Improved desktop image layout with a fixed 600px size and rainbow border.</li>
-          <li>Added a fun rain effect triggered by multiple clicks.</li>
-          <li>Added this changelog popup for version info.</li>
-          <li>Added 10'er.com donation link.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+        let payday = 25;
+        const paydayWeekday = new Date(today.getFullYear(), today.getMonth(), 25).getDay();
+        if (paydayWeekday === 6) payday = 24;
+        else if (paydayWeekday === 0) payday = 23;
 
-  <script>
-    // Image URLs keyed by day number (0 for Sunday, 1 for Monday, etc.)
-    const images = {
-      0: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif',
-      1: 'https://media1.tenor.com/m/Qnebx8AMQBMAAAAC/yes-definitely.gif',
-      2: 'https://media1.tenor.com/m/VLOBdjEfwlMAAAAC/good-fine.gif',
-      3: 'https://media1.tenor.com/m/Q7w0HT6tS74AAAAC/oh-yes-oh-yeah.gif',
-      4: 'https://media1.tenor.com/m/TK-0xXvsw9oAAAAC/loki-tom-hiddleston.gif',
-      5: 'https://media1.tenor.com/m/gv9tLejGAiMAAAAC/austin-powers-mike-myers.gif',
-      6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
-    };
-
-    // Default image in case today's day key isn't found.
-    const defaultImage = 'https://via.placeholder.com/600x400?text=Default+Image';
-
-    let clickCount = 0;
-    let rainActive = false; // Track if rain is active
-
-    // Get the current date
-    const today = new Date();
-    const todayDate = today.getDate();
-    const todayDay = today.getDay();
-
-    console.log(`Current Date: ${today.toDateString()} (Day: ${todayDay}, Date: ${todayDate})`);
-
-    // Determine the actual payday (last bank day before the 25th)
-    // Default payday is the 25th. If the 25th is on a weekend,
-    // move payday to Friday (24th if Saturday, 23rd if Sunday).
-    let payday = 25;
-    const paydayWeekday = new Date(today.getFullYear(), today.getMonth(), 25).getDay();
-
-    if (paydayWeekday === 6) {
-      payday = 24; // Saturday -> Friday
-    } else if (paydayWeekday === 0) {
-      payday = 23; // Sunday -> Friday
-    }
-
-    console.log(`Payday is set to: ${payday}`);
-
-    // Set the image for today in the image box
-    document.getElementById('saltyImage').src = images[todayDay] || defaultImage;
-
-    // Show "Nick is off for the weekend" on weekends (Saturday or Sunday)
-    if (todayDay === 6 || todayDay === 0) {
-      document.getElementById('statusText').style.display = "block";
-    }
-
-    // Show the green text message only if today is payday
-    if (todayDate === payday) {
-      document.getElementById('bankDayText').style.display = "block";
-    }
-
-    // Function to show the main popup message
-    function showPopup() {
-      const popup = document.getElementById('popup');
-      popup.style.display = "block";
-      setTimeout(function () {
-        popup.style.display = "none";
-      }, 2000); // Hide after 2 seconds
-    }
-
-    // Listen for clicks anywhere on the document and log click counts for the rain effect
-    document.addEventListener('click', function (event) {
-      clickCount++;
-      console.log('Click count:', clickCount);
-      if (clickCount === 5) {
-        if (!rainActive) {
-          startRain();
+        // Initial Setup
+        document.getElementById('saltyImage').src = images[todayDay] || defaultImage;
+        if (todayDay === 6 || todayDay === 0) {
+            document.getElementById('statusText').style.display = "block";
         }
-      }
-    });
+        if (todayDate === payday) {
+            document.getElementById('bankDayText').style.display = "block";
+        }
 
-    // Function to start the rain effect
-    function startRain() {
-      const rainElement = document.getElementById('rain');
-      rainElement.style.opacity = '1'; // Make rain visible
-      rainActive = true; // Set rain to active
+        // Popup Functions
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = "block";
+            setTimeout(() => popup.style.display = "none", 2000);
+        }
 
-      // Create 100 raindrops
-      for (let i = 0; i < 100; i++) {
-        const raindrop = document.createElement('div');
-        raindrop.classList.add('raindrop');
-        // Random horizontal position
-        raindrop.style.left = `${Math.random() * 100}vw`;
-        // Random animation duration and delay for a more natural effect
-        raindrop.style.animationDuration = `${Math.random() * 2 + 2}s`;
-        raindrop.style.animationDelay = `${Math.random() * 2}s`;
-        rainElement.appendChild(raindrop);
-      }
+        // Rain Effect
+        document.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 5 && !rainActive) startRain();
+        });
 
-      // Stop rain effect after 5 seconds and allow restart
-      setTimeout(function () {
-        rainElement.style.opacity = '0'; // Fade out rain
-        rainElement.innerHTML = ''; // Clear all raindrops
-        rainActive = false; // Reset rain status
-        clickCount = 0; // Reset click count after rain stops
-      }, 5000); // 5 seconds of rain
-    }
+        function startRain() {
+            const rainElement = document.getElementById('rain');
+            rainElement.style.opacity = '1';
+            rainActive = true;
 
-    // Changelog modal functions
-    function showChangelog() {
-      document.getElementById('changelogModal').style.display = "flex";
-    }
-    function closeChangelog() {
-      document.getElementById('changelogModal').style.display = "none";
-    }
+            for (let i = 0; i < 100; i++) {
+                const raindrop = document.createElement('div');
+                raindrop.classList.add('raindrop');
+                raindrop.style.left = `${Math.random() * 100}vw`;
+                raindrop.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                raindrop.style.animationDelay = `${Math.random() * 2}s`;
+                rainElement.appendChild(raindrop);
+            }
 
-    // Add click event on version text to open changelog modal
-    document.getElementById('versionText').addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent triggering other click events
-      showChangelog();
-    });
+            setTimeout(() => {
+                rainElement.style.opacity = '0';
+                rainElement.innerHTML = '';
+                rainActive = false;
+                clickCount = 0;
+            }, 5000);
+        }
 
-    // Close modal when clicking outside of modal content
-    document.getElementById('changelogModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeChangelog();
-      }
-    });
-  </script>
+        // Modal Functions
+        const versionText = document.getElementById('versionText');
+        const changelogModal = document.getElementById('changelogModal');
+
+        versionText.addEventListener('click', (e) => {
+            e.stopPropagation();
+            changelogModal.style.display = "flex";
+        });
+
+        changelogModal.addEventListener('click', (e) => {
+            if (e.target === changelogModal) changelogModal.style.display = "none";
+        });
+
+        function closeChangelog() {
+            changelogModal.style.display = "none";
+        }
+    </script>
 </body>
 </html>
