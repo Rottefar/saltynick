@@ -24,7 +24,7 @@
         /* Typography */
         h1 {
             padding-top: 2rem;
-            font-size: 2.5rem;
+            font-size: clamp(1.75rem, 5vw, 2.5rem); /* Scales between 1.75rem and 2.5rem */
             margin-bottom: 1.5rem;
         }
 
@@ -35,23 +35,32 @@
             margin: 0 auto;
         }
 
-        /* Image Box Styles */
+        /* Image Box Styles - Enhanced Scaling */
         .image-box {
-            background-color: #fff;
             position: relative;
+            display: inline-block;
             margin: 0 auto;
-            display: inline-block; /* Makes the box fit the image size */
-            padding: 0.5rem; /* Reduced padding for tighter fit */
+            background: none;
+            width: clamp(200px, 60vw, 600px); /* Scales between 200px and 600px based on viewport width */
+            max-width: 100%;
+        }
+
+        .image-wrapper {
+            position: relative;
+            display: block;
+            background: #fff;
+            border-radius: 5px;
+            padding: clamp(0.05rem, 0.2vw, 0.1rem); /* Minimal padding that scales slightly */
         }
 
         .image-box img {
-            width: 100%;
-            height: 100%;
+            width: 100%; /* Fills the container width */
+            height: auto; /* Maintains aspect ratio */
             object-fit: contain;
             border-radius: 5px;
+            display: block;
             position: relative;
             z-index: 1;
-            display: block; /* Removes any bottom gap */
         }
 
         /* Rainbow Border Effect */
@@ -63,7 +72,7 @@
             right: -5px;
             bottom: -5px;
             background: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet, red);
-            border-radius: 10px; /* Slightly smaller radius than before */
+            border-radius: 10px;
             z-index: -1;
             animation: rainbow 5s linear infinite;
         }
@@ -76,14 +85,14 @@
         /* Status Text */
         .red-text {
             color: red;
-            font-size: 2rem;
+            font-size: clamp(1.25rem, 4vw, 2rem); /* Scales between 1.25rem and 2rem */
             font-weight: bold;
             margin-top: 1rem;
         }
 
         .green-text {
             color: #a8e6a1;
-            font-size: 2rem;
+            font-size: clamp(1.25rem, 4vw, 2rem);
             font-weight: bold;
             margin-top: 1rem;
         }
@@ -97,7 +106,7 @@
             border-radius: 5px;
             cursor: pointer;
             padding: 0.625rem 1.25rem;
-            font-size: 1rem;
+            font-size: clamp(0.875rem, 2vw, 1rem); /* Scales button text */
         }
 
         .popup-button-desktop {
@@ -121,11 +130,12 @@
             transform: translate(-50%, -50%);
             background-color: #000;
             color: red;
-            padding: 2rem;
-            border: 6px solid red;
+            padding: clamp(1rem, 5vw, 2rem); /* Scales padding */
+            border: clamp(2px, 1vw, 6px) solid red; /* Scales border */
             border-radius: 10px;
             z-index: 100;
             font-weight: bold;
+            font-size: clamp(1.5rem, 10vw, 6rem); /* Scales text */
         }
 
         /* Footer */
@@ -143,7 +153,7 @@
 
         .version-text,
         .donation-text {
-            font-size: 0.9rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.9rem); /* Scales footer text */
             color: gray;
             cursor: pointer;
             max-width: 90%;
@@ -175,8 +185,8 @@
             position: absolute;
             background: url(https://i.imgur.com/0m5wWgu.png) no-repeat center center;
             background-size: contain;
-            width: 40px;
-            height: 40px;
+            width: clamp(20px, 4vw, 40px); /* Scales raindrop size */
+            height: clamp(20px, 4vw, 40px);
             animation: fall 2s linear infinite;
         }
 
@@ -198,7 +208,7 @@
         .modal-content {
             background: #222;
             color: #eee;
-            padding: 1.5rem;
+            padding: clamp(1rem, 3vw, 1.5rem);
             border-radius: 8px;
             max-width: 600px;
             width: 90%;
@@ -206,7 +216,7 @@
         }
 
         .modal-header {
-            font-size: 1.5rem;
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
             margin-bottom: 1rem;
             border-bottom: 1px solid #444;
             padding-bottom: 0.5rem;
@@ -216,6 +226,7 @@
             line-height: 1.6;
             max-height: 400px;
             overflow-y: auto;
+            font-size: clamp(0.875rem, 2vw, 1rem);
         }
 
         .modal-close {
@@ -225,7 +236,7 @@
             background: none;
             border: none;
             color: #aaa;
-            font-size: 1.5rem;
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
             cursor: pointer;
         }
 
@@ -233,29 +244,10 @@
             color: #fff;
         }
 
-        /* Desktop Styles */
-        @media (min-width: 769px) {
-            .image-box {
-                width: 600px;
-                height: 600px;
-            }
-            .popup {
-                font-size: 6rem;
-                padding: 4rem;
-            }
-        }
-
-        /* Mobile Styles */
+        /* Media Queries for Fine-Tuning */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.75rem;
-            }
-
             .image-box {
-                width: 90%;
-                max-width: 300px;
-                aspect-ratio: 1 / 1;
-                padding: 0.25rem; /* Even smaller padding for mobile */
+                width: clamp(150px, 80vw, 300px); /* Slightly wider range for mobile */
             }
 
             .popup-button-desktop {
@@ -265,18 +257,11 @@
             .popup-button-mobile {
                 display: block;
             }
+        }
 
-            .popup {
-                font-size: 2rem;
-                padding: 1rem;
-                border: 2px solid red;
-                width: 90%;
-                max-width: 300px;
-            }
-
-            .red-text,
-            .green-text {
-                font-size: 1.5rem;
+        @media (min-width: 769px) {
+            .image-box {
+                width: clamp(300px, 50vw, 600px); /* Smoother scaling for desktop */
             }
         }
     </style>
@@ -289,7 +274,9 @@
 
     <main class="container">
         <div class="image-box">
-            <img id="saltyImage" src="" alt="Nick's Mood">
+            <div class="image-wrapper">
+                <img id="saltyImage" src="" alt="Nick's Mood">
+            </div>
         </div>
         <div id="statusText" style="display: none;" class="red-text">
             Nick is off for the weekend, but still salty
@@ -322,7 +309,7 @@
                 <ul>
                     <li><strong>2025.02.18.02:</strong> Initial under development release.</li>
                     <li>Fixed payday logic for correct day display</li>
-                    <li>Improved desktop image layout (600px)</li>
+                    <li>Improved desktop image layout (600px max width)</li>
                     <li>Added rainbow border effect</li>
                     <li>Implemented rain effect on multiple clicks</li>
                     <li>Added changelog popup</li>
