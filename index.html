@@ -24,7 +24,7 @@
         /* Typography */
         h1 {
             padding-top: 2rem;
-            font-size: clamp(1.5rem, 5vw, 2.5rem); /* Adjusted min for mobile */
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
             margin-bottom: 1.5rem;
         }
 
@@ -35,13 +35,36 @@
             margin: 0 auto;
         }
 
+        /* Fact Box (Desktop Only) */
+        .fact-box {
+            background-color: #222;
+            padding: 1rem;
+            border-radius: 5px;
+            width: 250px;
+            text-align: left;
+            position: absolute;
+            left: 1rem;
+            top: 6rem;
+        }
+
+        .fact-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #a8e6a1;
+        }
+
+        .fact-box p {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
         /* Image Box Styles */
         .image-box {
             position: relative;
             display: inline-block;
             margin: 0 auto;
             background: none;
-            width: clamp(200px, 60vw, 600px); /* Default for desktop */
+            width: clamp(200px, 60vw, 600px);
             max-width: 100%;
         }
 
@@ -85,7 +108,7 @@
         /* Status Text */
         .red-text {
             color: red;
-            font-size: clamp(1rem, 4vw, 2rem); /* Adjusted min for mobile */
+            font-size: clamp(1rem, 4vw, 2rem);
             font-weight: bold;
             margin-top: 1rem;
         }
@@ -99,13 +122,14 @@
 
         /* Buttons */
         .popup-button-desktop,
-        .popup-button-mobile {
+        .popup-button-mobile,
+        .notd-button {
             background-color: red;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            padding: clamp(0.5rem, 2vw, 0.625rem) clamp(1rem, 3vw, 1.25rem); /* Scales padding */
+            padding: clamp(0.5rem, 2vw, 0.625rem) clamp(1rem, 3vw, 1.25rem);
             font-size: clamp(0.75rem, 2vw, 1rem);
         }
 
@@ -116,12 +140,13 @@
             z-index: 10;
         }
 
-        .popup-button-mobile {
+        .popup-button-mobile,
+        .notd-button {
             display: none;
-            margin: 1rem auto;
+            margin: 1rem 0.5rem;
         }
 
-        /* Popup */
+        /* Popup (for Click me) */
         .popup {
             display: none;
             position: fixed;
@@ -136,6 +161,24 @@
             z-index: 100;
             font-weight: bold;
             font-size: clamp(1.25rem, 10vw, 6rem);
+        }
+
+        /* NOTD Popup (Mobile) */
+        .notd-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #222;
+            color: #fff;
+            padding: 1rem;
+            border: 2px solid #a8e6a1;
+            border-radius: 10px;
+            z-index: 100;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            max-width: 80%;
+            text-align: center;
         }
 
         /* Footer */
@@ -153,7 +196,7 @@
 
         .version-text,
         .donation-text {
-            font-size: clamp(0.65rem, 2vw, 0.9rem); /* Adjusted min for mobile */
+            font-size: clamp(0.65rem, 2vw, 0.9rem);
             color: gray;
             cursor: pointer;
             max-width: 90%;
@@ -185,7 +228,7 @@
             position: absolute;
             background: url(https://i.imgur.com/0m5wWgu.png) no-repeat center center;
             background-size: contain;
-            width: clamp(15px, 4vw, 40px); /* Adjusted min for mobile */
+            width: clamp(15px, 4vw, 40px);
             height: clamp(15px, 4vw, 40px);
             animation: fall 2s linear infinite;
         }
@@ -194,7 +237,7 @@
             to { transform: translateY(100vh); }
         }
 
-        /* Modal Styles */
+        /* Modal Styles (for Changelog) */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -216,7 +259,7 @@
         }
 
         .modal-header {
-            font-size: clamp(1rem, 3vw, 1.5rem); /* Adjusted min for mobile */
+            font-size: clamp(1rem, 3vw, 1.5rem);
             margin-bottom: 1rem;
             border-bottom: 1px solid #444;
             padding-bottom: 0.5rem;
@@ -226,7 +269,7 @@
             line-height: 1.6;
             max-height: 400px;
             overflow-y: auto;
-            font-size: clamp(0.75rem, 2vw, 1rem); /* Adjusted min for mobile */
+            font-size: clamp(0.75rem, 2vw, 1rem);
         }
 
         .modal-close {
@@ -247,29 +290,38 @@
         /* Media Queries */
         @media (max-width: 768px) {
             .image-box {
-                width: clamp(120px, 85vw, 400px); /* Wider range for mobile scaling */
+                width: clamp(120px, 85vw, 400px);
             }
 
             .container {
-                padding: clamp(1rem, 5vw, 2rem); /* Scales padding on mobile */
+                padding: clamp(1rem, 5vw, 2rem);
             }
 
             .bottom-text {
-                padding: clamp(0.5rem, 2vw, 0.625rem); /* Scales footer padding */
+                padding: clamp(0.5rem, 2vw, 0.625rem);
             }
 
             .popup-button-desktop {
                 display: none;
             }
 
-            .popup-button-mobile {
-                display: block;
+            .popup-button-mobile,
+            .notd-button {
+                display: inline-block;
+            }
+
+            .fact-box {
+                display: none;
             }
         }
 
         @media (min-width: 769px) {
             .image-box {
-                width: clamp(300px, 50vw, 600px); /* Desktop scaling */
+                width: clamp(300px, 50vw, 600px);
+            }
+
+            .notd-button {
+                display: none;
             }
         }
     </style>
@@ -278,9 +330,14 @@
     <header>
         <h1>Is Nick Salty Today?</h1>
         <button class="popup-button-mobile" onclick="showPopup()">Click me</button>
+        <button class="notd-button" onclick="showNotdPopup()">NOTD</button>
     </header>
 
     <main class="container">
+        <div class="fact-box">
+            <h2>Nick of the Day</h2>
+            <p id="factText">Loading fact...</p>
+        </div>
         <div class="image-box">
             <div class="image-wrapper">
                 <img id="saltyImage" src="" alt="Nick's Mood">
@@ -307,6 +364,7 @@
 
     <button class="popup-button-desktop" onclick="showPopup()">Click me</button>
     <div id="popup" class="popup">SPURGT!</div>
+    <div id="notdPopup" class="notd-popup"></div>
     <div id="rain" class="rain"></div>
 
     <div id="changelogModal" class="modal-overlay">
@@ -315,13 +373,13 @@
             <div class="modal-header">Changelog</div>
             <div class="modal-body">
                 <ul>
-                    <li><strong>2025.02.18.02:</strong> Initial under development release.</li>
-                    <li>Fixed payday logic for correct day display</li>
-                    <li>Improved desktop image layout (600px max width)</li>
-                    <li>Added rainbow border effect</li>
-                    <li>Implemented rain effect on multiple clicks</li>
-                    <li>Added changelog popup</li>
-                    <li>Included 10'er.com donation link</li>
+                    <li><strong>2025.03.03.01:</strong> Initial under development release.</li>
+                    <li>Added "Nick of the Day" fact box on desktop, cycling through 7 unique facts.</li>
+                    <li>Added "NOTD" button on mobile with a popup displaying a random fact from the same set.</li>
+                    <li>Fixed image box centering to ensure it remains in the middle despite the new fact box on desktop.</li>
+                    <li>Improved mobile button layout by aligning "Click me" and "NOTD" buttons side by side.</li>
+                    <li>Updated fact box styling with a darker background and green heading for better contrast.</li>
+                    <li>Enhanced responsiveness by fine-tuning media query breakpoints for smoother transitions.</li>
                 </ul>
             </div>
         </div>
@@ -337,6 +395,17 @@
             5: 'https://media1.tenor.com/m/gv9tLejGAiMAAAAC/austin-powers-mike-myers.gif',
             6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
         };
+
+        // Array of 7 facts - REPLACE THESE WITH YOUR ACTUAL FACTS
+        const facts = [
+            "Nick Jonas - At age 13, Nick Jonas was diagnosed with Type 1 diabetes, which he manages while maintaining a high-energy career, including performing with the Jonas Brothers and acting in films like Jumanji: Welcome to the Jungle.",
+            "Nick Cannon - Nick Cannon wrote, produced, and starred in his first major film, Drumline (2002), at just 22 years old, showcasing his early entrepreneurial spirit before becoming a TV mogul with shows like The Masked Singer.",
+            "Nick Saban - Known as one of the greatest college football coaches, Nick Saban once worked in his father’s Gulf gas station in West Virginia, learning a work ethic that led him to seven national championships, more than any other major college coach.",
+            "Nick Nolte - Nick Nolte turned down the role of Han Solo in Star Wars, which famously went to Harrison Ford, a decision he later reflected on as he carved his own path with gritty roles in films like 48 Hrs. and Cape Fear.",
+            "Nick Cave - Nick Cave composed his haunting soundtrack for The Proposition (2005), a film he also wrote, drawing from his lifelong fascination with the Bible and outlaw tales, blending his musical and literary talents.",
+            "Nick Offerman - Best known as Ron Swanson on Parks and Recreation, Nick Offerman is an accomplished woodworker who owns Offerman Woodshop, where he crafts furniture and canoes, a passion he’s pursued since his theater days in Chicago.",
+            "Nick Vujicic - Born without arms or legs due to tetra-amelia syndrome, Nick Vujicic became a global motivational speaker and author, founding Life Without Limbs, inspiring millions with his resilience and faith-driven message."
+        ];
 
         const defaultImage = 'https://via.placeholder.com/600x400?text=Default+Image';
         let clickCount = 0;
@@ -361,11 +430,29 @@
             document.getElementById('bankDayText').style.display = "block";
         }
 
+        // Fact Box Cycling (Desktop)
+        let factIndex = 0;
+        const factText = document.getElementById('factText');
+        factText.textContent = facts[factIndex];
+        setInterval(() => {
+            factIndex = (factIndex + 1) % facts.length;
+            factText.textContent = facts[factIndex];
+        }, 10000); // Cycles every 10 seconds
+
         // Popup Functions
         function showPopup() {
             const popup = document.getElementById('popup');
             popup.style.display = "block";
             setTimeout(() => popup.style.display = "none", 2000);
+        }
+
+        // NOTD Popup (Mobile)
+        function showNotdPopup() {
+            const notdPopup = document.getElementById('notdPopup');
+            const randomFact = facts[Math.floor(Math.random() * facts.length)];
+            notdPopup.textContent = randomFact;
+            notdPopup.style.display = "block";
+            setTimeout(() => notdPopup.style.display = "none", 3000); // Shows for 3 seconds
         }
 
         // Rain Effect
@@ -396,7 +483,7 @@
             }, 5000);
         }
 
-        // Modal Functions
+        // Modal Functions (for Changelog)
         const versionText = document.getElementById('versionText');
         const changelogModal = document.getElementById('changelogModal');
 
