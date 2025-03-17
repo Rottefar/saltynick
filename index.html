@@ -35,29 +35,6 @@
             margin: 0 auto;
         }
 
-        /* Fact Box (Desktop Only) */
-        .fact-box {
-            background-color: #222;
-            padding: 1rem;
-            border-radius: 5px;
-            width: 250px;
-            text-align: left;
-            position: absolute;
-            left: 1rem;
-            top: 6rem;
-        }
-
-        .fact-box h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #a8e6a1;
-        }
-
-        .fact-box p {
-            font-size: 1rem;
-            line-height: 1.4;
-        }
-
         /* Image Box Styles */
         .image-box {
             position: relative;
@@ -123,7 +100,10 @@
         /* Buttons */
         .popup-button-desktop,
         .popup-button-mobile,
-        .notd-button {
+        .notd-button,
+        .notd-button-desktop,
+        .clickme2-button-desktop,
+        .clickme3-button-desktop {
             background-color: red;
             color: #fff;
             border: none;
@@ -136,6 +116,27 @@
         .popup-button-desktop {
             position: fixed;
             top: 1rem;
+            right: 1rem;
+            z-index: 10;
+        }
+
+        .notd-button-desktop {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+        }
+
+        .clickme2-button-desktop {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            z-index: 10;
+        }
+
+        .clickme3-button-desktop {
+            position: fixed;
+            bottom: 1rem;
             right: 1rem;
             z-index: 10;
         }
@@ -163,7 +164,7 @@
             font-size: clamp(1.25rem, 10vw, 6rem);
         }
 
-        /* NOTD Popup (Mobile) */
+        /* NOTD Popup (Reverted Styling) */
         .notd-popup {
             display: none;
             position: fixed;
@@ -172,13 +173,108 @@
             transform: translate(-50%, -50%);
             background-color: #222;
             color: #fff;
-            padding: 1rem;
+            padding: 1.5rem;
             border: 2px solid #a8e6a1;
             border-radius: 10px;
             z-index: 100;
             font-size: clamp(0.9rem, 3vw, 1.2rem);
+            width: clamp(250px, 50vw, 400px);
             max-width: 80%;
             text-align: center;
+            box-sizing: border-box;
+        }
+
+        .notd-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .notd-close:hover {
+            color: #fff;
+        }
+
+        /* Click me 2 Popup */
+        .clickme2-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #222;
+            padding: 2rem;
+            border: 2px solid red;
+            border-radius: 10px;
+            z-index: 100;
+            width: clamp(500px, 80vw, 700px);
+            max-width: 95%;
+            text-align: center;
+        }
+
+        .clickme2-popup p {
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+        }
+
+        .clickme2-popup img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .clickme2-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .clickme2-close:hover {
+            color: #fff;
+        }
+
+        /* Click me 3 Popup */
+        .clickme3-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000;
+            color: red;
+            padding: clamp(0.75rem, 5vw, 2rem);
+            border: clamp(2px, 1vw, 6px) solid red;
+            border-radius: 10px;
+            z-index: 100;
+            font-weight: bold;
+            font-size: clamp(1.25rem, 10vw, 6rem);
+            width: clamp(300px, 60vw, 600px);
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .clickme3-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .clickme3-close:hover {
+            color: #fff;
         }
 
         /* Footer */
@@ -287,6 +383,20 @@
             color: #fff;
         }
 
+        /* Mobile Button Container */
+        .mobile-buttons {
+            display: none;
+            position: fixed;
+            bottom: 4rem;
+            left: 0;
+            right: 0;
+            padding: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            z-index: 10;
+        }
+
         /* Media Queries */
         @media (max-width: 768px) {
             .image-box {
@@ -301,17 +411,17 @@
                 padding: clamp(0.5rem, 2vw, 0.625rem);
             }
 
-            .popup-button-desktop {
+            .popup-button-desktop,
+            .notd-button-desktop,
+            .clickme2-button-desktop,
+            .clickme3-button-desktop {
                 display: none;
             }
 
             .popup-button-mobile,
-            .notd-button {
-                display: inline-block;
-            }
-
-            .fact-box {
-                display: none;
+            .notd-button,
+            .mobile-buttons {
+                display: flex;
             }
         }
 
@@ -334,10 +444,6 @@
     </header>
 
     <main class="container">
-        <div class="fact-box">
-            <h2>Nick of the Day</h2>
-            <p id="factText">Loading fact...</p>
-        </div>
         <div class="image-box">
             <div class="image-wrapper">
                 <img id="saltyImage" src="" alt="Nick's Mood">
@@ -353,7 +459,7 @@
 
     <footer class="bottom-text">
         <div class="version-text" id="versionText">
-            Version 2025.03.03.01 - <span class="under-development">under development</span>
+            Version 2025.17.03.01 - <span class="under-development">under development</span>
         </div>
         <div class="donation-text">
             <a href="https://10er.com/saltynickdk" target="_blank">
@@ -362,9 +468,29 @@
         </div>
     </footer>
 
+    <div class="mobile-buttons">
+        <button class="popup-button-mobile" onclick="showClickme2Popup()">Click me 2</button>
+        <button class="popup-button-mobile" onclick="showClickme3Popup()">Click me 3</button>
+    </div>
+
     <button class="popup-button-desktop" onclick="showPopup()">Click me</button>
+    <button class="notd-button-desktop" onclick="showNotdPopupDesktop()">Nick of the Day</button>
+    <button class="clickme2-button-desktop" onclick="showClickme2Popup()">Click me 2</button>
+    <button class="clickme3-button-desktop" onclick="showClickme3Popup()">Click me 3</button>
     <div id="popup" class="popup">SPURGT!</div>
-    <div id="notdPopup" class="notd-popup"></div>
+    <div id="notdPopup" class="notd-popup">
+        <button class="notd-close" onclick="hideNotdPopup()">×</button>
+        <span id="notdPopupText"></span>
+    </div>
+    <div id="clickme2Popup" class="clickme2-popup">
+        <button class="clickme2-close" onclick="hideClickme2Popup()">×</button>
+        <p>How Nick spends his money</p>
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnZkdHN2aWQwenN4a2RybWQ0Y3FoY2VpNTl5N3FxOW14a3FzYjJ1bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nk12xotFCd0Na/giphy.gif" alt="Money Spending GIF">
+    </div>
+    <div id="clickme3Popup" class="clickme3-popup">
+        <button class="clickme3-close" onclick="hideClickme3Popup()">×</button>
+        <div id="countdown"></div>
+    </div>
     <div id="rain" class="rain"></div>
 
     <div id="changelogModal" class="modal-overlay">
@@ -373,13 +499,14 @@
             <div class="modal-header">Changelog</div>
             <div class="modal-body">
                 <ul>
-                    <li><strong>2025.03.03.01:</strong> Initial under development release.</li>
-                    <li>Added "Nick of the Day" fact box on desktop, cycling through 7 unique facts.</li>
-                    <li>Added "NOTD" button on mobile with a popup displaying a random fact from the same set.</li>
-                    <li>Fixed image box centering to ensure it remains in the middle despite the new fact box on desktop.</li>
-                    <li>Improved mobile button layout by aligning "Click me" and "NOTD" buttons side by side.</li>
-                    <li>Updated fact box styling with a darker background and green heading for better contrast.</li>
-                    <li>Enhanced responsiveness by fine-tuning media query breakpoints for smoother transitions.</li>
+                    <li><strong>2025.17.03.01:</strong> Initial under development release.</li>
+                    <li>Added "Nick of the Day" button on desktop with a 10-second popup.</li>
+                    <li>Added "NOTD" button on mobile with a popup displaying a random fact.</li>
+                    <li>Added "Click me 2" with larger GIF popup and 10-second auto-close.</li>
+                    <li>Added "Click me 3" with larger countdown in hours and seconds.</li>
+                    <li>Updated rain effect to trigger after 5 clicks within 3 seconds.</li>
+                    <li>Improved mobile button layout with a centered button row.</li>
+                    <li>Enhanced responsiveness with media query adjustments.</li>
                 </ul>
             </div>
         </div>
@@ -396,7 +523,6 @@
             6: 'https://media1.tenor.com/m/qRPOPHOc-UQAAAAC/annoyed-annoying.gif'
         };
 
-        // Array of 7 facts - REPLACE THESE WITH YOUR ACTUAL FACTS
         const facts = [
             "Nick Jonas - At age 13, Nick Jonas was diagnosed with Type 1 diabetes, which he manages while maintaining a high-energy career, including performing with the Jonas Brothers and acting in films like Jumanji: Welcome to the Jungle.",
             "Nick Cannon - Nick Cannon wrote, produced, and starred in his first major film, Drumline (2002), at just 22 years old, showcasing his early entrepreneurial spirit before becoming a TV mogul with shows like The Masked Singer.",
@@ -408,8 +534,8 @@
         ];
 
         const defaultImage = 'https://via.placeholder.com/600x400?text=Default+Image';
-        let clickCount = 0;
         let rainActive = false;
+        let clickTimestamps = [];
 
         // Date Logic
         const today = new Date();
@@ -430,15 +556,6 @@
             document.getElementById('bankDayText').style.display = "block";
         }
 
-        // Fact Box Cycling (Desktop)
-        let factIndex = 0;
-        const factText = document.getElementById('factText');
-        factText.textContent = facts[factIndex];
-        setInterval(() => {
-            factIndex = (factIndex + 1) % facts.length;
-            factText.textContent = facts[factIndex];
-        }, 10000); // Cycles every 10 seconds
-
         // Popup Functions
         function showPopup() {
             const popup = document.getElementById('popup');
@@ -449,16 +566,97 @@
         // NOTD Popup (Mobile)
         function showNotdPopup() {
             const notdPopup = document.getElementById('notdPopup');
+            const notdPopupText = document.getElementById('notdPopupText');
             const randomFact = facts[Math.floor(Math.random() * facts.length)];
-            notdPopup.textContent = randomFact;
+            notdPopupText.textContent = randomFact;
             notdPopup.style.display = "block";
-            setTimeout(() => notdPopup.style.display = "none", 3000); // Shows for 3 seconds
+            setTimeout(() => notdPopup.style.display = "none", 3000);
         }
 
-        // Rain Effect
+        // NOTD Popup (Desktop)
+        function showNotdPopupDesktop() {
+            const notdPopup = document.getElementById('notdPopup');
+            const notdPopupText = document.getElementById('notdPopupText');
+            const randomFact = facts[Math.floor(Math.random() * facts.length)];
+            notdPopupText.textContent = randomFact;
+            notdPopup.style.display = "block";
+            setTimeout(() => notdPopup.style.display = "none", 10000);
+        }
+
+        function hideNotdPopup() {
+            const notdPopup = document.getElementById('notdPopup');
+            notdPopup.style.display = "none";
+        }
+
+        // Click me 2 Popup
+        function showClickme2Popup() {
+            const clickme2Popup = document.getElementById('clickme2Popup');
+            clickme2Popup.style.display = "block";
+            setTimeout(() => clickme2Popup.style.display = "none", 10000);
+        }
+
+        function hideClickme2Popup() {
+            const clickme2Popup = document.getElementById('clickme2Popup');
+            clickme2Popup.style.display = "none";
+        }
+
+        // Click me 3 Popup (Countdown)
+        function showClickme3Popup() {
+            const clickme3Popup = document.getElementById('clickme3Popup');
+            clickme3Popup.style.display = "block";
+            startCountdown();
+        }
+
+        function hideClickme3Popup() {
+            const clickme3Popup = document.getElementById('clickme3Popup');
+            clickme3Popup.style.display = "none";
+        }
+
+        function startCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            const targetDate = new Date(today.getFullYear(), 3, 1);
+            if (today > targetDate) {
+                targetDate.setFullYear(today.getFullYear() + 1);
+            }
+
+            const updateCountdown = () => {
+                const now = new Date();
+                const timeLeft = targetDate - now;
+
+                if (timeLeft <= 0) {
+                    countdownElement.textContent = "0h 0s";
+                    return;
+                }
+
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60 * 60)) / 1000);
+
+                countdownElement.textContent = `${hours}h ${seconds}s`;
+            };
+
+            updateCountdown();
+            const interval = setInterval(updateCountdown, 1000);
+
+            document.getElementById('clickme3Popup').addEventListener('click', (e) => {
+                if (e.target.classList.contains('clickme3-close')) {
+                    clearInterval(interval);
+                }
+            }, { once: true });
+        }
+
+        // Rain Effect with 5 Clicks in 3 Seconds
         document.addEventListener('click', () => {
-            clickCount++;
-            if (clickCount === 5 && !rainActive) startRain();
+            if (rainActive) return;
+
+            const now = Date.now();
+            clickTimestamps.push(now);
+
+            clickTimestamps = clickTimestamps.filter(timestamp => now - timestamp <= 3000);
+
+            if (clickTimestamps.length >= 5) {
+                startRain();
+                clickTimestamps = [];
+            }
         });
 
         function startRain() {
@@ -479,7 +677,6 @@
                 rainElement.style.opacity = '0';
                 rainElement.innerHTML = '';
                 rainActive = false;
-                clickCount = 0;
             }, 5000);
         }
 
