@@ -99,11 +99,10 @@
 
         /* Buttons */
         .popup-button-desktop,
-        .popup-button-mobile,
-        .notd-button,
         .notd-button-desktop,
         .clickme2-button-desktop,
-        .clickme3-button-desktop {
+        .clickme3-button-desktop,
+        .mobile-button {
             background-color: red;
             color: #fff;
             border: none;
@@ -141,10 +140,19 @@
             z-index: 10;
         }
 
-        .popup-button-mobile,
-        .notd-button {
+        /* Mobile Button Container */
+        .mobile-buttons {
             display: none;
-            margin: 1rem 0.5rem;
+            position: fixed;
+            bottom: 4rem;
+            left: 0;
+            right: 0;
+            padding: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            z-index: 10;
         }
 
         /* Popup (for Click me) */
@@ -164,7 +172,7 @@
             font-size: clamp(1.25rem, 10vw, 6rem);
         }
 
-        /* NOTD Popup (Reverted Styling) */
+        /* NOTD Popup */
         .notd-popup {
             display: none;
             position: fixed;
@@ -383,20 +391,6 @@
             color: #fff;
         }
 
-        /* Mobile Button Container */
-        .mobile-buttons {
-            display: none;
-            position: fixed;
-            bottom: 4rem;
-            left: 0;
-            right: 0;
-            padding: 0.5rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            z-index: 10;
-        }
-
         /* Media Queries */
         @media (max-width: 768px) {
             .image-box {
@@ -418,8 +412,6 @@
                 display: none;
             }
 
-            .popup-button-mobile,
-            .notd-button,
             .mobile-buttons {
                 display: flex;
             }
@@ -429,18 +421,12 @@
             .image-box {
                 width: clamp(300px, 50vw, 600px);
             }
-
-            .notd-button {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Is Nick Salty Today?</h1>
-        <button class="popup-button-mobile" onclick="showPopup()">Click me</button>
-        <button class="notd-button" onclick="showNotdPopup()">NOTD</button>
     </header>
 
     <main class="container">
@@ -469,8 +455,10 @@
     </footer>
 
     <div class="mobile-buttons">
-        <button class="popup-button-mobile" onclick="showClickme2Popup()">Click me 2</button>
-        <button class="popup-button-mobile" onclick="showClickme3Popup()">Click me 3</button>
+        <button class="mobile-button" onclick="showPopup()">Click me</button>
+        <button class="mobile-button" onclick="showNotdPopup()">NOTD</button>
+        <button class="mobile-button" onclick="showClickme2Popup()">Click me 2</button>
+        <button class="mobile-button" onclick="showClickme3Popup()">Click me 3</button>
     </div>
 
     <button class="popup-button-desktop" onclick="showPopup()">Click me</button>
@@ -505,7 +493,7 @@
                     <li>Added "Click me 2" with larger GIF popup and 10-second auto-close.</li>
                     <li>Added "Click me 3" with larger countdown in hours and seconds.</li>
                     <li>Updated rain effect to trigger after 5 clicks within 3 seconds.</li>
-                    <li>Improved mobile button layout with a centered button row.</li>
+                    <li>Improved mobile button layout with a unified centered row.</li>
                     <li>Enhanced responsiveness with media query adjustments.</li>
                 </ul>
             </div>
